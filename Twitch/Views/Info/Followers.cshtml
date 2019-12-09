@@ -1,0 +1,13 @@
+﻿@model Twitch.Utils.Twitch.Models.UserFollowsModel
+@{
+	ViewData["Title"] = "Followers";
+}
+
+<h1>Followers</h1>
+
+<ul>
+	@foreach (var follower in Model.Followers)
+	{
+	<li>@follower.FromUser (@follower.FollowerAt.ToShortDateString())</li>
+	}
+</ul>

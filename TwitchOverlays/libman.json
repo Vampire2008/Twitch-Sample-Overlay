@@ -1,0 +1,40 @@
+{
+  "version": "1.0",
+  "defaultProvider": "unpkg",
+	"libraries": [
+		{
+			"library": "@microsoft/signalr@latest",
+			"destination": "wwwroot/lib/signalr/",
+			"files": [
+				"dist/browser/signalr.js",
+				"dist/browser/signalr.min.js",
+				"dist/browser/signalr.js.map",
+				"dist/browser/signalr.min.js.map"
+			]
+		},
+		{
+			"library": "bootstrap@4.4.1",
+			"destination": "wwwroot/lib/bootstrap/",
+			"files": [
+				"dist/css/bootstrap.css",
+				"dist/css/bootstrap.min.css",
+				"dist/css/bootstrap.css.map",
+				"dist/css/bootstrap.min.css.map",
+				"dist/js/bootstrap.bundle.js",
+				"dist/js/bootstrap.bundle.js.map",
+				"dist/js/bootstrap.bundle.min.js",
+				"dist/js/bootstrap.bundle.min.js.map"
+			]
+		},
+		{
+			"provider": "cdnjs",
+			"library": "jquery@3.4.1",
+			"destination": "wwwroot/lib/jquery/",
+			"files": [
+				"jquery.min.js",
+				"jquery.min.map",
+				"jquery.js"
+			]
+		}
+	]
+}

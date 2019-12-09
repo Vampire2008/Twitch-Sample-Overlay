@@ -1,0 +1,99 @@
+﻿
+@{
+	Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+	<meta name="viewport" content="width=device-width" />
+	<title>Follower</title>
+	<style>
+		body {
+			background-color: black;
+		}
+
+		.base {
+			opacity: 0;
+			transition: opacity 1s;
+		}
+
+		.shown {
+			opacity: 1 !important;
+		}
+
+		.border {
+			border: solid black 1px;
+		}
+
+		.cont {
+			display: flex;
+			align-content: center;
+			background-color: white;
+			border-radius: 20px;
+			width: 520px;
+		}
+
+		.message {
+			margin-top: auto;
+			margin-bottom: auto;
+			font-size: 50px;
+		}
+
+		.img-cont {
+			height: 200px;
+			width: 200px;
+		}
+
+		img {
+			height: 100%;
+			width: 100%;
+		}
+	</style>
+</head>
+<body>
+	<div class="cont border base">
+		<div class="img-cont">
+			<img src="~/img/doomer_walk.gif" />
+		</div>
+		<div id="message" class="message" style="">
+			New follower:
+			<div id="follower"></div>
+		</div>
+	</div>
+
+
+	<script src="~/lib/jquery/jquery.js"></script>
+	<script src="~/lib/signalr/dist/browser/signalr.js"></script>
+	<script>
+		"use strict";
+
+		const connection = new signalR.HubConnectionBuilder().withUrl("/overlay").build();
+		const cont = $(".base");
+		const followersQueue = [];
+		let displayIsBusy = false;
+		connection.on("newFollower", function (name) {
+			followersQueue.push(name);
+		});
+
+		setInterval(() => {
+			if (displayIsBusy) return;
+			const follower = followersQueue.shift();
+			if (!follower) return;
+			displayIsBusy = true;
+			$("#follower").text(follower);
+			cont.addClass("shown")
+			setTimeout(() => {
+				cont.removeClass("shown");
+				displayIsBusy = false;
+			}, 3000)
+		}, 1000);
+
+		connection.start().then(function () {
+		}).catch(function (err) {
+			return console.error(err.toString());
+		});
+	</script>
+</body>
+</html>
